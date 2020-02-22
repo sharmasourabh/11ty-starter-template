@@ -1,0 +1,149 @@
+$AUTHOR_IMAGE_SIZE_SMALL: 40px;
+
+.b-author {
+  display: flex;
+  padding: 8px;
+}
+
+.b-author-img {
+  @apply bg-gray-300;
+  border-radius: 50%;
+  flex-shrink: 0;
+  height: 64px;
+  margin: 0 12px 0 0;
+  object-fit: cover;
+  overflow: hidden;
+  width: 64px;
+}
+
+.b-author-img--row {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  margin: 0px calc(#{$AUTHOR_IMAGE_SIZE_SMALL} / 4) 0px calc(#{$AUTHOR_IMAGE_SIZE_SMALL} / 2);
+}
+
+.b-author-img--row-item {
+  border-radius: 50%;
+  height: $AUTHOR_IMAGE_SIZE_SMALL;
+  margin-left: calc(-#{$AUTHOR_IMAGE_SIZE_SMALL} / 2);
+  overflow: hidden;
+  position: relative;
+  width: $AUTHOR_IMAGE_SIZE_SMALL;
+}
+
+.b-author-img--row-item > .b-author-img {
+  border: solid white 2px;
+}
+
+.b-author-img--small {
+  height: $AUTHOR_IMAGE_SIZE_SMALL;
+  width: $AUTHOR_IMAGE_SIZE_SMALL;
+}
+
+.b-authors-card {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 12px;
+
+  @apply bp(sm) {
+    grid-template-columns: 256px 256px;
+  }
+
+  @apply bp(md) {
+    grid-template-columns: 256px 256px 256px;
+  }
+}
+
+.b-author-published {
+  @apply text-gray-700;
+}
+
+.b-author-separator {
+  padding: 0 4px;
+}
+
+.b-author-name,
+.b-author-published {
+  display: block;
+  font-size: 14px;
+  font-style: normal;
+  line-height: 20px;
+}
+
+.b-author-name {
+  @apply text-gray-900;
+}
+
+.b-author-link:hover {
+  color: #ed8936;
+}
+
+.b-author-link-list {
+  display: block;
+  list-style: none;
+  margin: 0;
+  overflow: hidden;
+}
+
+.b-author-link-listitem {
+  float: left;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0;
+}
+
+.b-author-link-listitem::after {
+  content: '·';
+  display: inline-block;
+  margin: 0 4px;
+}
+
+.b-author-link-listitem:last-of-type::after {
+  content: '';
+  margin: 0;
+}
+
+
+// post
+
+.b-page-title-subtitle {
+  font-size: 16px;
+  line-height: 28px;
+  // margin: 12px auto;
+
+  @apply bp(xxsm) {
+    font-size: 18px;
+    line-height: 32px;
+    margin: 16px auto;
+  }
+}
+
+// blog cards
+
+.b-post-card-desc {
+  display: block;
+}
+
+.b-post-card-desc::before {
+  content: '';
+  display: block;
+  height: 2px;
+  position: absolute;
+  top: 24px;
+  width: 64px;
+  z-index: -1;
+
+  @apply bp(sm) {
+    top: 32px;
+  }
+}
+
+// .b-post-card-link:hover {
+//   text-decoration: none;
+// }
+
+.b-post-card-subtitle {
+  @apply text-gray-700;
+  font: inherit;
+  margin: 0;
+}

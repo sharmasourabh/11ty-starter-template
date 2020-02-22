@@ -1,0 +1,20 @@
+{
+    "main": [
+        {
+            "label": "Home",
+            "url": "/"
+        },
+        {
+            "label": "Blog",
+            "url": "/blog/"
+        },
+        {
+            "label": "About",
+            "url": "/about/"
+        },
+        {
+            "label": "Search",
+            "url": "/search/"
+        }
+    ]
+}

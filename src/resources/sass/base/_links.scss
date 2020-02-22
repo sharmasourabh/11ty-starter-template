@@ -1,0 +1,15 @@
+
+//==========  Links ==========//
+
+a {
+    @apply text-gray-900 no-underline transition;
+
+    &:not([class]) {
+        border-bottom-width: 2px;
+        @apply border-blue-500;
+
+        &:hover {
+            @apply text-blue-500;
+        }
+    }
+}

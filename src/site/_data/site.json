@@ -1,0 +1,36 @@
+{
+    "name": "11ty-starter-template",
+    "url": "https://11ty-starter-template.netlify.com",
+    "author": {
+        "name": "Roger Federer",
+        "email": "Federer@Roger.com",
+        "handle": "@RogerFedererFan",
+        "avatar": "/src/images/blog/author.jpg",
+        "github": "xyz",
+        "twitter": "xyz",
+        "linkedin": "xyz"
+    },
+    "images": {
+        "logo": "/src/images/logo/logo.svg",
+        "favicon": "/src/images/favicon-16x16.png",
+        "twitter": "/src/images/meta/twitter.jpg",
+        "og": "/src/images/meta/og.jpg"
+    },
+    "social_links": {
+        "facebook": "https://www.facebook.com/xyz",
+        "twitter": "https://twitter.com/xyz",
+        "linkedin": "https://www.linkedin.com/xyz"
+    },
+    "address": {
+        "street": "123 Cup Street",
+        "street_2": "Tennis Court Road",
+        "city": "Awanda",
+        "postcode": "LN1 234",
+        "country": "AW"
+    },
+    "contact": {
+        "phone": "123 456 789",
+        "mobile": "(+99) 1234 5678",
+        "email": "Federer@Roger.com"
+    }
+}

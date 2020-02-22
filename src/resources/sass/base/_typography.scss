@@ -1,0 +1,91 @@
+//==========  Typography ==========//
+
+// headings
+h1 {
+	@apply font-extrabold text-4xl leading-tight mt-0 mb-8;
+	@apply text-gray-800;
+}
+
+h2 {
+	@apply font-bold text-3xl leading-tight mt-0 mb-6;
+	@apply text-gray-800;
+}
+
+h3 {
+	@apply font-semibold text-2xl leading-tight mt-0 mb-4;
+	@apply text-gray-800;
+}
+
+h4, h5, h6 {
+	@apply text-gray-800;
+}
+
+.page-title {
+  @apply text-4xl;
+}
+
+// content
+.content {
+  // paragraph
+  > p {
+    @apply mb-8;
+
+    // intro paragraph
+    &:first-child {
+      @apply border-b border-gray-200 text-xl pb-10 mb-10 font-light leading-snug text-gray-600;
+
+      @screen md {
+        @apply text-2xl;
+      }
+    }
+	}
+}
+
+  // blockquote
+  blockquote {
+    //@include w-article-text();
+    @apply bg-gray-100;
+		@apply my-8;
+		@apply py-8;
+		@apply pl-10;
+		@apply pr-0;
+    // padding: 32px 0px 32px 48px;
+
+    > p {
+      @apply text-lg;
+			@apply pr-4;
+
+			> cite {
+				@apply font-normal;
+				@apply leading-loose;
+				@apply m-0;
+				@apply text-left;
+				&::before {
+					//@include font-material-icon();
+					content: "—";
+					@apply float-left;
+					@apply pr-1;
+					transform: scale(1);
+				}
+			}
+    }
+  }
+
+  blockquote::before {
+    //@include font-material-icon();
+    content: "🛈";
+		@apply float-left;
+		@apply my-0;
+		@apply -ml-6;
+    transform: scale(1.5);
+	}
+
+	ol {
+		li {
+			@apply m-4
+		}
+	}
+
+	li > p {
+		@apply text-base;
+	}

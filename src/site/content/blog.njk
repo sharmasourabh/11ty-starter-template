@@ -1,0 +1,92 @@
+---
+layout: default
+meta_title: Blog
+meta_description: Blog page description
+body_class: blog
+title: Blog
+hidden: true
+pagination:
+  data: collections.blog
+  size: 6
+  alias: blogs
+---
+
+<main id="main" class="main inner flex flex-1 flex-col py-10 lg:py-20 focus:outline-none" tabindex="-1">
+    <section id="container-centre" class="column centre flex-1  mb-12" aria-label="Blogs">
+        <h1 class="page-title text-2xl md:text-center md:text-4xl mb-16 lg:mb-20 lg:text-5xl">{{ title }}</h1>
+        <div class="posts grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+            {% for post in blogs %}
+                <article class="article-card mb-4 mt-4 mx-4 flex-1 bg-white overflow-hidden rounded-lg shadow-lg">
+                    {# featured post image & tag #}
+                    {% if post.data.featured_image %}
+                        <a class="featured-image-link block relative overflow-hidden" href="{{ post.url }}">
+                            {# tag link #}
+                            <ul class="absolute bottom-0 left-0 flex p-8 z-10">
+                                {% for item in post.data.tags %}
+                                    {%- if item != "blog" -%}
+                                        <li class="mr-2">
+                                            <span class="inline-block bg-blue-500 px-4 py-2 text-white text-xs font-bold rounded">{{ item | capitalize }}</span>
+                                        </li>
+                                    {%- endif -%}
+                                {% endfor %}
+                            </ul>
+
+                            <figure>
+                                {# the 'data-lazy' attribute will lazy load your images in #}
+                                {# the js uses the new Intersection Observer API, see ../modules/lazyload #}
+                                {# it's not fully supported in some browsers, so proceed with caution! #}
+                                {# the srcset attribute would be a nice addtion here as well...in a future update maybe :) #}
+                                <img data-lazy="{{ post.data.featured_image }}" class="block" alt="{{ post.data.image_caption }}">
+                            </figure>
+                        </a>
+                    {% endif %}
+
+                    <div class="p-4">
+                        <h2 class="text-2xl mb-6">
+                            <a class="block text-gray-900 hover:text-blue-500" href="{{ post.url }}">{{ post.data.title }}</a>
+                        </h2>
+                        <div class="text-sm text-gray-600 md:flex mb-2">
+                            <div class="b-authors-card">
+                                <div class="b-author-img--row">
+                                    <div class="b-author-img--row-item">
+                                        <img class="b-author-img b-author-img--small" src="{{ site.author.avatar }}" alt="{{ site.author.name }}"></img>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="b-author-name">{{ site.author.name }}</span>
+                                    <div class="b-author-published">
+                                        {{ post.data.created | dateDisplay }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="b-post-card-desc">
+                            <a class="b-post-card-link" tabindex="-1" href="{{post.url}}">
+                                <p class="b-post-card-subtitle">
+                                    {{post.data.subtitle}}
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </section>
+    <nav class="flex flex-wrap align-center justify-center" aria-labelledby="my-pagination">
+        {% if pagination.pageNumber !== 0 %}
+            <a class="h-10 w-10 text-center text-gray-600 hover:text-blue-400" aria-label="First Page" href="{{ pagination.hrefs[0] }}">❮❮</a>
+        {% endif %}
+        {% if pagination.pageNumber > 1 %}
+            <a class="h-10 w-10 text-center text-gray-600 hover:text-blue-400" aria-label="Previous Page" href="{{ pagination.hrefs[pagination.pageNumber - 1] }}">❮</a>
+        {% endif %}
+        {%- for pageEntry in pagination.pages %}
+            <a href="{{ pagination.hrefs[ loop.index0 ] }}"{% if page.url == pagination.hrefs[ loop.index0 ] %} aria-current="page" class="h-10 w-10 text-center border-b-2 border-blue-400" {% else %} class="h-10 w-10 text-center text-gray-600 hover:text-blue-400" {% endif %}>{{ loop.index }}</a>
+        {%- endfor %}
+        {% if (pagination.pageNumber + 2) < (pagination.hrefs.length) %}
+            <a class="h-10 w-10 text-center text-gray-600 hover:text-blue-400" aria-label="Next Page" href="{{ pagination.hrefs[pagination.pageNumber + 1] }}">❯</a>
+        {% endif %}
+        {% if pagination.pageNumber != (pagination.hrefs.length - 1) %}
+            <a class="h-10 w-10 text-center text-gray-600 hover:text-blue-400" aria-label="Last Page" href="{{ pagination.hrefs[ pagination.hrefs.length - 1 ] }}">❯❯</a>
+        {% endif %}
+    </nav>
+</main>
