@@ -1,6 +1,8 @@
-.vscode
 .DS_Store
 node_modules/
 dist/
+src/js/
+src/css/
 package-lock.json
-**/yarn.lock
+**/*.log
+mix-manifest.json

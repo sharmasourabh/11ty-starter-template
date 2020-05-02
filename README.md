@@ -9,7 +9,7 @@ Demo: <https://11ty-starter-template.netlify.com/>
 - Build sites faster with the power of [Eleventy](https://www.11ty.dev/docs/), [TailwindCSS](https://tailwindcss.com) and SCSS
 - [Laravel Mix](https://laravel-mix.com/docs/5.0/basic-example) (Webpack) to watch, concatenate and compile styles and scripts
 - HTML minifier
-- Purgecss for removing unused CSS
+- Tailwind Purge CSS for unused CSS
 - SEO friendly pages
 - Image lazyloading
 - A simple blog with tags and featured images
@@ -20,6 +20,7 @@ Demo: <https://11ty-starter-template.netlify.com/>
 - Author Info Card
 - Supports both blog created and updated date
 - Paginated Blog Page with responsive grid layout
+- Page anchors and Table of Content support
 - Support markdown/blockquote with information box
 - Default config is used in tailwind.config.js
 - Search feature using elasticlunr
@@ -31,7 +32,7 @@ Node `>=` v8.9.0
 
 ## Installation
 
-``` bash
+```bash
 npm install
 ```
 

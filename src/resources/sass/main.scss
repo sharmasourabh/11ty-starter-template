@@ -1,22 +1,10 @@
-
 //==========  Imports  ==========//
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700");
 
-// Import Tailwind preflight
-@tailwind base;
+@import "tailwindcss/base";
+@import "base/all";
 
+@import "tailwindcss/components";
+@import "components/all";
 
-// Import our custom base styles
-@import 'base/all';
-
-
-// Import Tailwind components
-@tailwind components;
-
-
-// Import our custom component styles
-@import 'components/all';
-
-
-// Import Tailwind utilities
-// TailwindCSS recommends leaving utilities till last to ensure they aren't overwritten.
-@tailwind utilities;
+@import "tailwindcss/utilities";

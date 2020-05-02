@@ -19,7 +19,8 @@ $AUTHOR_IMAGE_SIZE_SMALL: 40px;
 .b-author-img--row {
   display: inline-flex;
   flex-direction: row-reverse;
-  margin: 0px calc(#{$AUTHOR_IMAGE_SIZE_SMALL} / 4) 0px calc(#{$AUTHOR_IMAGE_SIZE_SMALL} / 2);
+  margin: 0px calc(#{$AUTHOR_IMAGE_SIZE_SMALL} / 4) 0px
+    calc(#{$AUTHOR_IMAGE_SIZE_SMALL} / 2);
 }
 
 .b-author-img--row-item {
@@ -45,13 +46,13 @@ $AUTHOR_IMAGE_SIZE_SMALL: 40px;
   flex-direction: row;
   margin-bottom: 12px;
 
-  @apply bp(sm) {
-    grid-template-columns: 256px 256px;
-  }
+  //@apply bp(sm) {
+  grid-template-columns: 256px 256px;
+  //}
 
-  @apply bp(md) {
-    grid-template-columns: 256px 256px 256px;
-  }
+  //@apply bp(md) {
+  grid-template-columns: 256px 256px 256px;
+  //}
 }
 
 .b-author-published {
@@ -93,16 +94,15 @@ $AUTHOR_IMAGE_SIZE_SMALL: 40px;
 }
 
 .b-author-link-listitem::after {
-  content: '·';
+  content: "·";
   display: inline-block;
   margin: 0 4px;
 }
 
 .b-author-link-listitem:last-of-type::after {
-  content: '';
+  content: "";
   margin: 0;
 }
-
 
 // post
 
@@ -111,11 +111,11 @@ $AUTHOR_IMAGE_SIZE_SMALL: 40px;
   line-height: 28px;
   // margin: 12px auto;
 
-  @apply bp(xxsm) {
-    font-size: 18px;
-    line-height: 32px;
-    margin: 16px auto;
-  }
+  //@apply bp(xxsm) {
+  font-size: 18px;
+  line-height: 32px;
+  margin: 16px auto;
+  //}
 }
 
 // blog cards
@@ -125,7 +125,7 @@ $AUTHOR_IMAGE_SIZE_SMALL: 40px;
 }
 
 .b-post-card-desc::before {
-  content: '';
+  content: "";
   display: block;
   height: 2px;
   position: absolute;
@@ -133,9 +133,9 @@ $AUTHOR_IMAGE_SIZE_SMALL: 40px;
   width: 64px;
   z-index: -1;
 
-  @apply bp(sm) {
-    top: 32px;
-  }
+  //@apply bp(sm) {
+  top: 32px;
+  //}
 }
 
 // .b-post-card-link:hover {
@@ -146,4 +146,19 @@ $AUTHOR_IMAGE_SIZE_SMALL: 40px;
   @apply text-gray-700;
   font: inherit;
   margin: 0;
+}
+
+a[href].direct-link,
+a[href].direct-link:visited {
+  @apply text-gray-500;
+  visibility: hidden;
+}
+
+:focus > a[href].direct-link,
+:focus > a[href].direct-link:visited,
+:hover > a[href].direct-link,
+:hover > a[href].direct-link:visited,
+a[href].direct-link:focus,
+a[href].direct-link:focus:visited {
+  visibility: visible;
 }

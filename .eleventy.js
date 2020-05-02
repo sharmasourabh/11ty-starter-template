@@ -3,18 +3,62 @@ const fs = require("fs");
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const inclusiveLangPlugin = require("@11ty/eleventy-plugin-inclusive-language");
+const slugify = require("slugify");
+const markdownIt = require("markdown-it");
 
 const AuthorInfo = require(`./src/site/_includes/components/author-info`);
 
-module.exports = eleventyConfig => {
+module.exports = (eleventyConfig) => {
   // Plugins
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(inclusiveLangPlugin, {
     templateFormats: ["md", "njk"], // default, add more file extensions here
     // accepts an array or a comma-delimited string
-    words: "literally,simply,obviously,basically,of course,clearly,just,everyone knows,however,so,easy"
+    words:
+      "literally,simply,obviously,basically,of course,clearly,just,everyone knows,however,so,easy",
   });
+
+  // Markdown
+  function removeExtraText(s) {
+    let newStr = String(s).replace(/New\ in\ v\d+\.\d+\.\d+/, "");
+    newStr = newStr.replace(/⚠️/g, "");
+    newStr = newStr.replace(/[?!]/g, "");
+    newStr = newStr.replace(/<[^>]*>/g, "");
+    return newStr;
+  }
+  function markdownItSlugify(s) {
+    return slugify(removeExtraText(s), { lower: true, remove: /[:’'`,]/g });
+  }
+  let markdownItAnchor = require("markdown-it-anchor");
+  let markdownItToc = require("markdown-it-table-of-contents");
+  let mdIt = markdownIt({
+    html: true,
+    breaks: true,
+    linkify: true,
+  })
+    .use(markdownItAnchor, {
+      permalink: true,
+      slugify: markdownItSlugify,
+      permalinkBefore: false,
+      permalinkClass: "direct-link",
+      permalinkSymbol: "#",
+      level: [1, 2, 3, 4],
+    })
+    .use(markdownItToc, {
+      includeLevel: [2, 3],
+      slugify: markdownItSlugify,
+      format: function(heading) {
+        return removeExtraText(heading);
+      },
+      transformLink: function(link) {
+        // remove backticks from markdown code
+        return link.replace(/\%60/g, "");
+      },
+    });
+
+  mdIt.linkify.tlds(".io", false);
+  eleventyConfig.setLibrary("md", mdIt);
 
   // Add a readable date formatter filter to Nunjucks
   eleventyConfig.addFilter(
@@ -26,10 +70,13 @@ module.exports = eleventyConfig => {
     "htmlDateDisplay",
     require("./src/site/_filters/timestamp.js")
   );
-  eleventyConfig.addFilter("log", obj => {
+  eleventyConfig.addFilter("log", (obj) => {
     console.log(obj);
   });
-  eleventyConfig.addFilter("search", require("./src/site/_filters/searchFilter.js"));
+  eleventyConfig.addFilter(
+    "search",
+    require("./src/site/_filters/searchFilter.js")
+  );
 
   eleventyConfig.addShortcode("AuthorInfo", AuthorInfo);
 
@@ -39,7 +86,7 @@ module.exports = eleventyConfig => {
       let minified = htmlmin.minify(content, {
         useShortDoctype: true,
         removeComments: true,
-        collapseWhitespace: true
+        collapseWhitespace: true,
       });
       return minified;
     }
@@ -56,8 +103,8 @@ module.exports = eleventyConfig => {
           res.write(content_404);
           res.end();
         });
-      }
-    }
+      },
+    },
   });
 
   // Collections
@@ -90,7 +137,7 @@ module.exports = eleventyConfig => {
       input: "src/site/content",
       output: "dist",
       includes: "../_includes",
-      data: "../_data"
-    }
+      data: "../_data",
+    },
   };
 };
