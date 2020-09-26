@@ -1,5 +1,16 @@
 module.exports = {
-  purge: ["./src/site/**/*.html", "./src/site/**/*.md", "./src/site/**/*.njk"],
+  future: {
+    removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true,
+  },
+  purge: {
+    layers: ["utilities"],
+    content: [
+      "./src/site/**/*.html",
+      "./src/site/**/*.md",
+      "./src/site/**/*.njk",
+    ],
+  },
   theme: {
     extend: {},
   },
