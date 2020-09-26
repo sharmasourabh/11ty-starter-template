@@ -28,7 +28,7 @@ Demo: <https://11ty-starter-template.netlify.com/>
 
 ## Requirements
 
-Node `>=` v8.9.0
+Node `>=` v12.0.0
 
 ## Installation
 
@@ -57,6 +57,78 @@ Type the `npm run prod` command to minify scripts, styles and run Purgecss.
 Purge will cross reference your templates/HTML with all those Tailwind classes and will remove any classes you haven't used - pretty cool huh?
 
 11ty-starter-template will now reference `main.min.css` as the new stylesheet (annoyingly, Mix also minifies `main.css` as well - this bugs the hell out of me!).
+
+## Adding page anchor and table of content
+
+1. Run `yarn add slugify markdown-it markdown-it-anchor markdown-it-table-of-contents -D`
+2. Add following code in `.eleventy.js`
+
+   ```js
+   const slugify = require("slugify");
+   const markdownIt = require("markdown-it");
+   // Markdown
+
+   function removeExtraText(s) {
+     let newStr = String(s).replace(/New\ in\ v\d+\.\d+\.\d+/, "");
+     newStr = newStr.replace(/⚠️/g, "");
+     newStr = newStr.replace(/[?!]/g, "");
+     newStr = newStr.replace(/<[^>]*>/g, "");
+     return newStr;
+   }
+   function markdownItSlugify(s) {
+     return slugify(removeExtraText(s), { lower: true, remove: /[:’'`,]/g });
+   }
+   let markdownItAnchor = require("markdown-it-anchor");
+   let markdownItToc = require("markdown-it-table-of-contents");
+   let mdIt = markdownIt({
+     html: true,
+     breaks: true,
+     linkify: true,
+   })
+     .use(markdownItAnchor, {
+       permalink: true,
+       slugify: markdownItSlugify,
+       permalinkBefore: false,
+       permalinkClass: "direct-link",
+       permalinkSymbol: "#",
+       level: [1, 2, 3, 4],
+     })
+     .use(markdownItToc, {
+       includeLevel: [2, 3],
+       slugify: markdownItSlugify,
+       format: function(heading) {
+         return removeExtraText(heading);
+       },
+       transformLink: function(link) {
+         // remove backticks from markdown code
+         return link.replace(/\%60/g, "");
+       },
+     });
+
+   mdIt.linkify.tlds(".io", false);
+   eleventyConfig.setLibrary("md", mdIt);
+   ```
+
+3. Add following CSS
+
+   ```css
+   a[href].direct-link,
+   a[href].direct-link:visited {
+     @apply text-gray-500;
+     visibility: hidden;
+   }
+
+   :focus > a[href].direct-link,
+   :focus > a[href].direct-link:visited,
+   :hover > a[href].direct-link,
+   :hover > a[href].direct-link:visited,
+   a[href].direct-link:focus,
+   a[href].direct-link:focus:visited {
+     visibility: visible;
+   }
+   ```
+
+4. For table of content add `[[toc]]` in md file.
 
 ## Gratitude
 
